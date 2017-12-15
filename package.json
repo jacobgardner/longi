@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/jacobgardner/longi#readme",
   "devDependencies": {
+    "awesome-typescript-loader": "^3.4.1",
     "gulp": "^3.9.1",
+    "gulp-typescript": "^3.2.3",
+    "source-map-loader": "^0.2.3",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0"
   }
