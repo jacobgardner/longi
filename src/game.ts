@@ -165,25 +165,31 @@ function draw(state: GameState) {
     console.log('-----------------');
 }
 
+const container = document.querySelector('.js-container') as HTMLElement;
+
 async function test() {
+    const board = new Board();
+    board.attach(container);
     let state = generateInitialState([['jake']], 'shade');
-    draw(state);
+    board.word = 'shade';
+    // draw(state);
     state = await attemptWord(state, 'shoot');
-    draw(state);
+    await board.attempt('shoot');
+    await board.reveal(state.reveals);
+    // draw(state);
     state = await attemptWord(state, 'sheds');
-    draw(state);
+    await board.attempt('sheds');
+    await board.reveal(state.reveals);
+    // draw(state);
     state = await attemptWord(state, 'shape');
-    draw(state);
+    await board.attempt('shape');
+    await board.reveal(state.reveals);
+    // draw(state);
+
 }
 
 
-const container = document.querySelector('.js-container') as HTMLElement;
 
-const board = new Board();
-board.attach(container);
-board.word = 'shade';
-board.attempt('shoot');
-board.attempt('sheds');
-console.log(container, board);
+// console.log(container, board);
 
 test();

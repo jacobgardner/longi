@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/jacobgardner/longi#readme",
   "devDependencies": {
+    "@types/animejs": "^2.0.0",
     "@types/lodash": "^4.14.91",
+    "animejs": "^2.2.0",
     "awesome-typescript-loader": "^3.4.1",
     "clone-deep": "^2.0.1",
     "gulp": "^3.9.1",
