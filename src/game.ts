@@ -1,3 +1,4 @@
+import Board from './longiBoard';
 import { randInt, isValidWord } from './utils';
 import { cloneDeep } from 'lodash';
 
@@ -83,7 +84,7 @@ async function attemptWord(
 
             const word = state.word.toUpperCase();
             const attempt = wordAttempt.toUpperCase();
-            
+
             for (let i = 0; i < word.length; i += 1) {
                 if (word[i] === attempt[i]) {
                     state.reveals[i] = true;
@@ -174,5 +175,15 @@ async function test() {
     state = await attemptWord(state, 'shape');
     draw(state);
 }
+
+
+const container = document.querySelector('.js-container') as HTMLElement;
+
+const board = new Board();
+board.attach(container);
+board.word = 'shade';
+board.attempt('shoot');
+board.attempt('sheds');
+console.log(container, board);
 
 test();

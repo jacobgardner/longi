@@ -1,0 +1,41 @@
+.board {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: calc(18vh * 5);;
+    overflow: hidden;
+    justify-content: flex-start;
+    background-color: white;
+}
+
+.row {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+}
+
+.col {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    width: 18vh;
+    height: 18vh;
+    border: 1px solid white;
+    display: flex;
+    font-size: 13vh;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 1px 1px 1vh black;
+
+    background: linear-gradient(to bottom, #1e5799 0%,#4478b4 100%);
+    border-radius: 1vh;
+
+    box-shadow: inset 0px 0px 1vh black;
+}
+
+.col.letter-correctPosition {
+    background: linear-gradient(to bottom, #1a831f 0%,#44b44d 100%);
+}

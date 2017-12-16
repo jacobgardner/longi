@@ -21,10 +21,14 @@
     "awesome-typescript-loader": "^3.4.1",
     "clone-deep": "^2.0.1",
     "gulp": "^3.9.1",
+    "gulp-postcss": "^7.0.0",
     "gulp-typescript": "^3.2.3",
     "lodash": "^4.17.4",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^11.0.0",
     "source-map-loader": "^0.2.3",
     "typescript": "^2.6.2",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-stream": "^4.0.0"
   }
 }
