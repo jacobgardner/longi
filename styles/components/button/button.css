@@ -1,0 +1,30 @@
+.btn {
+    background-color: white;
+    border: 0;
+    padding: 2vh;
+    margin: 2vh;
+    height: 12vh;
+}
+
+
+.btn-menu {
+    margin: 0;
+    font-size: 6vh;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to bottom, #1e5799 0%,#4478b4 100%);
+    text-shadow: 0 0 1vh black;
+    border: 1px solid white;
+    border-radius: 1vh;
+    box-shadow: inset 0px 0px 1vh black;
+}
+
+.btn-menu:disabled {
+    background: linear-gradient(to bottom, #4b709b 0%,#7e9ab9 100%);
+    color: rgb(212, 212, 212);
+}
+
+.btn-menu:active {
+    background: linear-gradient(to bottom, #1a831f 0%,#44b44d 100%);
+    /* background-color: bisque; */
+}

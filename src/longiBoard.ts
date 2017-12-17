@@ -32,22 +32,29 @@ export default class Board {
     async reveal(reveals: boolean[]) {}
 
     playSound(soundName: string) {
-        if (soundName === 'wrongLetter') {
-            return new Promise(resolve => {
-                const sound = document.createElement('audio');
-                document.body.appendChild(sound);
-                sound.src = `sounds/wrong-letter-short.mp3`;
+        // if (soundName === 'wrongLetter') {
+        //     return new Promise(resolve => {
+        //         console.log('queuing...');
+        //         const audio = document.createElement('audio');
+        //         document.body.appendChild(audio);
 
-                sound.addEventListener('ended', () => {
-                    sound.remove();
-                    // resolve();
-                });
+        //         // const source = document.createElement('source');
 
-                setTimeout(resolve, 200);
+        //         audio.src = `sounds/wrong-letter-short.mp3`;
+        //         audio.crossOrigin = 'anonymous';
 
-                sound.play();
-            });
-        }
+        //         audio.play();
+        //         audio.addEventListener('ended', () => {
+        //             setTimeout(() => {
+        //                 audio.pause();
+        //                 audio.src = '';
+        //                 audio.remove();
+        //                 resolve();
+        //             }, 500);
+        //             // resolve();
+        //         });
+        //     });
+        // }
 
         return new Promise(resolve => {
             setTimeout(resolve, 200);

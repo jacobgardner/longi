@@ -1,3 +1,5 @@
 /* Components */
 @import './board/board.css';
+@import './button/button.css';
 @import './letter/letter.css';
+@import './menu/menu.css';
