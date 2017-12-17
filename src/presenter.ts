@@ -41,7 +41,7 @@ class PresenterMenu {
             <div class="menu">
                 <button class="btn btn-menu js-singlePlayer" title="Not yet implemented" disabled>Single Player</button>
                 <button class="btn btn-menu js-secondScreen">Present on Second Screen</button>
-                <button class="btn btn-menu js-cast" is="google-cast-button"></button>
+                <button class="btn btn-menu js-cast" is="google-cast-button">Present Via Chromecast</button>
             </div>
         `
     }
@@ -53,3 +53,15 @@ class PresenterMenu {
 
 const menu = new PresenterMenu();
 menu.attach(container);
+
+console.log('Cast Framework Version:', cast.framework.VERSION);
+const APP_ID = 'CD0EE29F';
+cast.framework.setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
+
+cast.framework.CastContext.getInstance().setOptions({
+    receiverApplicationId: APP_ID,
+    autoJoinPolicy: chrome.cast.AutoJoinPolicy.PAGE_SCOPED
+});
+
+const remote = new cast.framework.RemotePlayer();
+console.log(remote);
