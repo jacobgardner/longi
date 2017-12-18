@@ -2,7 +2,7 @@ import { MESSAGE_NAMESPACE, NON_CAST_DESIGNATION } from './config';
 import MessageProtocol from './protocol';
 import './game';
 
-console.log('Starting...');
+console.log('Starting....');
 
 function handleMessage(data: MessageProtocol) {
     console.log('message', data.poop);

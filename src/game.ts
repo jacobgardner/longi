@@ -1,6 +1,7 @@
 import Board from './longiBoard';
 import { randInt, isValidWord } from './utils';
-import { cloneDeep } from 'lodash';
+
+const cloneDeep = require('clone-deep');
 
 class LongiBoard {
     constructor() {}
@@ -184,6 +185,11 @@ async function test() {
     state = await attemptWord(state, 'shape');
     await board.attempt('shape');
     await board.reveal(state.reveals);
+
+    state = await attemptWord(state, 'shade');
+    await board.attempt('shade');
+    await board.reveal(state.reveals);
+
     // draw(state);
 
 }

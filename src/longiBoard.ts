@@ -158,4 +158,5 @@ export default class Board {
     attach(element: HTMLElement) {
         element.appendChild(this.board);
     }
+
 }
