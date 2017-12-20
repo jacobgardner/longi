@@ -1,3 +1,6 @@
+import { wait } from './utils';
+import * as anime from 'animejs';
+
 function* range(max: number): IterableIterator<number> {
     for (let i = 0; i < max; i += 1) {
         yield i;
@@ -20,16 +23,54 @@ export default class Board {
         fragment.innerHTML = stuff;
         this.board = fragment.children[0] as HTMLDivElement;
 
-        for (const i of range(6)) {
+        for (const i of range(5)) {
             this.addRow(i);
         }
+
+        // TODO: This will break scroll animation...
+        window.addEventListener('resize', () => {
+            this.board.scrollTop =
+                this.board.scrollHeight - this.board.clientHeight;
+        });
     }
 
     clear() {
-        throw new Error('Not yet implemented');
+        console.error('Not yet implemented.');
     }
 
-    async reveal(reveals: boolean[]) {}
+    async reveal(reveals: boolean[]) {
+        let last;
+
+        for (let i = 0; i < this.word.length; i += 1) {
+            const element = document.getElementById(
+                `entry-${this.filled}-${i}`
+            ) as HTMLDivElement;
+
+            const letterElement = document.createElement('div');
+
+            letterElement.className = 'letter';
+
+            if (reveals[i]) {
+                letterElement.innerText = this.word[i].toUpperCase();
+            } else {
+                letterElement.innerText = '.';
+            }
+
+            element.appendChild(letterElement);
+
+            last = anime({
+                targets: letterElement,
+                opacity: [0, 1],
+                duration: 800,
+                easing: 'linear',
+            }).finished;
+
+            await wait(200);
+        }
+
+        await last;
+
+    }
 
     playSound(soundName: string) {
         // if (soundName === 'wrongLetter') {
@@ -62,10 +103,6 @@ export default class Board {
     }
 
     async attempt(word: string) {
-        if (this.filled >= 5) {
-            this.addRow(this.filled);
-        }
-
         const originalWord = this.word.toUpperCase();
 
         const frequency: LetterFrequency = {};
@@ -91,13 +128,16 @@ export default class Board {
                 `entry-${this.filled}-${i}`
             ) as HTMLDivElement;
 
-            const letterElement = document.createElement('div');
+            const letter = wordAttempt[i].toUpperCase();
+            // const letterElement = document.createElement('div');
+            const letterElement = element.querySelector(
+                `.letter`
+            ) as HTMLDivElement;
             letterElement.className = 'letter';
-            letterElement.innerText = wordAttempt[i];
+            letterElement.innerText = letter;
 
-            element.appendChild(letterElement);
+            // element.appendChild(letterElement);
 
-            const letter = wordAttempt[i];
             // output += `%c${wordAttempt[i]}`;
             if (letter === originalWord[i]) {
                 element.classList.add('letter-correctPosition');
@@ -135,6 +175,10 @@ export default class Board {
         // }
 
         this.filled += 1;
+
+        if (this.filled >= 5) {
+            await this.addRow(this.filled);
+        }
     }
 
     addRow(rowNumber: number) {
@@ -147,6 +191,13 @@ export default class Board {
         const row = fragment.children[0];
 
         this.board.appendChild(row);
+
+        return anime({
+            targets: this.board,
+            scrollTop: this.board.scrollHeight - this.board.clientHeight,
+            easing: 'linear',
+            duration: 600,
+        }).finished;
     }
 
     private generate() {
@@ -158,5 +209,4 @@ export default class Board {
     attach(element: HTMLElement) {
         element.appendChild(this.board);
     }
-
 }

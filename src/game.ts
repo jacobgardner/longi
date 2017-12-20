@@ -174,6 +174,7 @@ async function test() {
     let state = generateInitialState([['jake']], 'shade');
     board.word = 'shade';
     // draw(state);
+    await board.reveal(state.reveals);
     state = await attemptWord(state, 'shoot');
     await board.attempt('shoot');
     await board.reveal(state.reveals);
@@ -190,6 +191,14 @@ async function test() {
     await board.attempt('shade');
     await board.reveal(state.reveals);
 
+    state = await attemptWord(state, 'shite');
+    await board.attempt('shite');
+    await board.reveal(state.reveals);
+
+
+    state = await attemptWord(state, 'shits');
+    await board.attempt('shits');
+    await board.reveal(state.reveals);
     // draw(state);
 
 }

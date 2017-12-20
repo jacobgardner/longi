@@ -16,7 +16,7 @@ function syncReload() {
 
 function build(watch = false) {
     return gulp
-        .src(['src/presenter.ts', 'src/audience.ts'])
+        .src(['src/main.ts', 'src/audience.ts'])
         .pipe(
             webpack(
                 Object.assign({}, webpackConfig, {
@@ -51,6 +51,7 @@ gulp.task('watch-styles', ['build-styles'], () => {
 gulp.task('watch-setup', () => {
     return browserSync.init({
         port: 8080,
+        open: false,
         server: {
             baseDir: './'
         }

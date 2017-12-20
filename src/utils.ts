@@ -1,3 +1,5 @@
+import { setTimeout } from "timers";
+
 export function randInt(max: number): number;
 export function randInt(min: number, max: number): number;
 export function randInt(min: number, max?: number) {
@@ -34,4 +36,10 @@ export async function isValidWord(word: string): Promise<InvalidWord | boolean> 
     }
 
     return true;
+}
+
+export function wait(duration: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, duration);
+    });
 }

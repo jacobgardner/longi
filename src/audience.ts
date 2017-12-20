@@ -1,13 +1,45 @@
+import Board from './longiBoard';
 import { MESSAGE_NAMESPACE, NON_CAST_DESIGNATION } from './config';
-import MessageProtocol from './protocol';
-import './game';
+import MessageProtocol, { MessageType } from './protocol';
+// import './game';
 
 console.log('Starting....');
 
-function handleMessage(data: MessageProtocol) {
-    console.log('message', data.poop);
+const container = document.querySelector('.js-container') as HTMLElement;
+const board = new Board();
+board.attach(container);
+
+const messageQueue: MessageProtocol[] = [];
+let inProgress = false;
+
+async function processMessages() {
+    inProgress = true;
+    while (messageQueue.length) {
+        const message = messageQueue.shift() as MessageProtocol;
+        console.log(message);
+
+        switch (message.messageType) {
+            case MessageType.SET_WORD:
+                await board.clear();
+                board.word = message.payload.word;
+                await board.reveal(message.payload.reveals);
+                break;
+            case MessageType.ATTEMPT:
+                await board.attempt(message.payload.word);
+                await board.reveal(message.payload.reveals);
+                break;
+        }
+    }
+
+    inProgress = false;
 }
 
+function handleMessage(data: MessageProtocol) {
+    messageQueue.push(data);
+    if (!inProgress) {
+        processMessages();
+    }
+}
 
 if (window.location.hash === `#${NON_CAST_DESIGNATION}`) {
     window.addEventListener('message', dataContainer => {

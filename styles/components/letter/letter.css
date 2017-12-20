@@ -1,6 +1,17 @@
 
 .letter {
+    /* animation-duration: 0.2s;
+    animation-name: reveal; */
+}
 
+@keyframes reveal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .letter-wrongPosition .letter {

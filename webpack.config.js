@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        presenter: './src/presenter.ts',
+        main: './src/main.ts',
         audience: './src/audience.ts',
     },
 
