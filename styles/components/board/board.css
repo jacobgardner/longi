@@ -17,7 +17,7 @@
     flex-shrink: 0;
 }
 
-.col {
+.entry {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     box-sizing: border-box;
     width: 18vh;
@@ -36,6 +36,6 @@
     box-shadow: inset 0px 0px 1vh black;
 }
 
-.col.letter-correctPosition {
+.entry.letter-correctPosition {
     background: linear-gradient(to bottom, #1a831f 0%,#44b44d 100%);
 }

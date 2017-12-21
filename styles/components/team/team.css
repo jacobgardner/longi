@@ -12,6 +12,7 @@
 .team {
     display: flex;
     flex-flow: column;
+    align-items: center;
 }
 
 .header {
@@ -44,4 +45,16 @@
 
 .team-score::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.playerWord {
+    /* width: 80%; */
+    font-size: 4vh;
+    text-align: center;
 }

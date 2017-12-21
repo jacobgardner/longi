@@ -34,12 +34,28 @@ export default class Board {
         });
     }
 
-    clear() {
-        console.error('Not yet implemented.');
+    async clear() {
+        for (let i = 5; i < this.filled; i += 1) {
+            const element = document.getElementById(`row-${i}`);
+            if (element) {
+                element.remove();
+            }
+        }
+
+        for (const entry of this.board.querySelectorAll('.entry')) {
+            entry.className = 'entry';
+            entry.innerHTML = '';
+        }
+
+        this.filled = 0;
     }
 
     async reveal(reveals: boolean[]) {
         let last;
+
+        if (this.filled >= 5) {
+            await this.addRow(this.filled);
+        }
 
         for (let i = 0; i < this.word.length; i += 1) {
             const element = document.getElementById(
@@ -69,7 +85,6 @@ export default class Board {
         }
 
         await last;
-
     }
 
     playSound(soundName: string) {
@@ -102,7 +117,7 @@ export default class Board {
         });
     }
 
-    async attempt(word: string) {
+    async attempt(word: string, valid: boolean) {
         const originalWord = this.word.toUpperCase();
 
         const frequency: LetterFrequency = {};
@@ -123,6 +138,16 @@ export default class Board {
         let output = '';
         const colors = [];
 
+        if (valid) {
+            wordAttempt.split('').forEach((letter, idx) => {
+                console.log(letter, idx, frequency, originalWord[idx]);
+                if (originalWord[idx] === letter) {
+                    frequency[letter] -= 1;
+                }
+            });
+        }
+        console.log(JSON.stringify(frequency));
+
         for (let i = 0; i < wordAttempt.length; i += 1) {
             const element = document.getElementById(
                 `entry-${this.filled}-${i}`
@@ -136,26 +161,23 @@ export default class Board {
             letterElement.className = 'letter';
             letterElement.innerText = letter;
 
-            // element.appendChild(letterElement);
-
-            // output += `%c${wordAttempt[i]}`;
-            if (letter === originalWord[i]) {
-                element.classList.add('letter-correctPosition');
-                await this.playSound('correct');
-                frequency[letter] -= 1;
-            } else {
-                if (frequency[letter]) {
-                    element.classList.add('letter-wrongPosition');
-                    await this.playSound('wrongPosition');
-                    // colors.push('orange');
-                    frequency[letter] -= 1;
+            if (valid) {
+                if (letter === originalWord[i]) {
+                    element.classList.add('letter-correctPosition');
+                    await this.playSound('correct');
+                    // frequency[letter] -= 1;
                 } else {
-                    colors.push('blue');
-                    await this.playSound('wrongLetter');
+                    if (frequency[letter]) {
+                        element.classList.add('letter-wrongPosition');
+                        await this.playSound('wrongPosition');
+                        // colors.push('orange');
+                        frequency[letter] -= 1;
+                    } else {
+                        colors.push('blue');
+                        await this.playSound('wrongLetter');
+                    }
                 }
             }
-
-            // console.log(originalFrequency);
         }
 
         // console.log(output, ...colors.map(color => `color: ${color};`));
@@ -176,9 +198,7 @@ export default class Board {
 
         this.filled += 1;
 
-        if (this.filled >= 5) {
-            await this.addRow(this.filled);
-        }
+
     }
 
     addRow(rowNumber: number) {
@@ -186,7 +206,7 @@ export default class Board {
         fragment.innerHTML = `<div class="row" id="row-${rowNumber}">${Array.from(
             range(5)
         )
-            .map(j => `<div class="col" id="entry-${rowNumber}-${j}"></div>`)
+            .map(j => `<div class="entry" id="entry-${rowNumber}-${j}"></div>`)
             .join('')}</div>`;
         const row = fragment.children[0];
 

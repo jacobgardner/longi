@@ -30,7 +30,7 @@ export enum GameMode {
     BONUS,
 }
 
-interface GameState {
+export interface GameState {
     teams: Team[];
     mode: GameMode;
     word: string;
@@ -43,28 +43,28 @@ interface GameState {
 //     history: Snapshot[];
 // }
 
-function generateInitialState(
-    teams: string[][],
-    initialWord: string
+export function generateInitialState(
+    // teams: string[][],
+    // initialWord: string
 ): GameState {
     // if (teams.length !== 2) {
     //     throw new Error('Not yet implemented.');
     // }
 
-    const reveals: boolean[] = Array.prototype.map.call(initialWord, () => false);
-    reveals[0] = true;
+    // const reveals: boolean[] = Array.prototype.map.call(initialWord, () => false);
+    // reveals[0] = true;
 
     return {
-        teams: teams.map(players => new Team(players)),
+        teams: [],
         mode: GameMode.REGULAR,
-        word: initialWord,
-        reveals,
-        activeTeam: randInt(teams.length),
+        word: '',
+        reveals: [],
+        activeTeam: 0,
         attempts: [],
     };
 }
 
-async function attemptWord(
+export async function attemptWord(
     prevState: GameState,
     wordAttempt: string
 ): Promise<GameState> {
@@ -166,45 +166,45 @@ function draw(state: GameState) {
     console.log('-----------------');
 }
 
-const container = document.querySelector('.js-container') as HTMLElement;
+// const container = document.querySelector('.js-container') as HTMLElement;
 
-async function test() {
-    const board = new Board();
-    board.attach(container);
-    let state = generateInitialState([['jake']], 'shade');
-    board.word = 'shade';
-    // draw(state);
-    await board.reveal(state.reveals);
-    state = await attemptWord(state, 'shoot');
-    await board.attempt('shoot');
-    await board.reveal(state.reveals);
-    // draw(state);
-    state = await attemptWord(state, 'sheds');
-    await board.attempt('sheds');
-    await board.reveal(state.reveals);
-    // draw(state);
-    state = await attemptWord(state, 'shape');
-    await board.attempt('shape');
-    await board.reveal(state.reveals);
+// async function test() {
+//     const board = new Board();
+//     board.attach(container);
+//     let state = generateInitialState([['jake']], 'shade');
+//     board.word = 'shade';
+//     // draw(state);
+//     await board.reveal(state.reveals);
+//     state = await attemptWord(state, 'shoot');
+//     await board.attempt('shoot');
+//     await board.reveal(state.reveals);
+//     // draw(state);
+//     state = await attemptWord(state, 'sheds');
+//     await board.attempt('sheds');
+//     await board.reveal(state.reveals);
+//     // draw(state);
+//     state = await attemptWord(state, 'shape');
+//     await board.attempt('shape');
+//     await board.reveal(state.reveals);
 
-    state = await attemptWord(state, 'shade');
-    await board.attempt('shade');
-    await board.reveal(state.reveals);
+//     state = await attemptWord(state, 'shade');
+//     await board.attempt('shade');
+//     await board.reveal(state.reveals);
 
-    state = await attemptWord(state, 'shite');
-    await board.attempt('shite');
-    await board.reveal(state.reveals);
-
-
-    state = await attemptWord(state, 'shits');
-    await board.attempt('shits');
-    await board.reveal(state.reveals);
-    // draw(state);
-
-}
+//     state = await attemptWord(state, 'shite');
+//     await board.attempt('shite');
+//     await board.reveal(state.reveals);
 
 
+//     state = await attemptWord(state, 'shits');
+//     await board.attempt('shits');
+//     await board.reveal(state.reveals);
+//     // draw(state);
 
-// console.log(container, board);
+// }
 
-test();
+
+
+// // console.log(container, board);
+
+// test();

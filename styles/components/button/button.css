@@ -28,3 +28,10 @@
     background: linear-gradient(to bottom, #1a831f 0%,#44b44d 100%);
     /* background-color: bisque; */
 }
+
+.btn-primary {
+    height: 4vh;
+    margin: 2vh;
+    padding: 0 2vh;
+    font-weight: bold;
+}

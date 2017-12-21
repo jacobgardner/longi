@@ -1,4 +1,5 @@
 import { MESSAGE_NAMESPACE } from './config';
+import { AttemptResponse } from './game';
 
 export interface SetWord {
     word: string;
@@ -8,9 +9,11 @@ export interface SetWord {
 export interface AttemptWord {
     word: string;
     reveals: boolean[];
+    attemptResponse: AttemptResponse;
 }
 
 export default interface MessageProtocol {
+    namespace?: string;
     messageType: MessageType;
     payload: SetWord | AttemptWord;
 };
@@ -31,6 +34,7 @@ export class WindowMessageSender extends MessageSender {
     }
 
     send(data: MessageProtocol) {
+        data.namespace = MESSAGE_NAMESPACE;
         this.window.postMessage(data, '*');
     }
 }
@@ -41,6 +45,7 @@ export class CastMessageSender extends MessageSender {
     }
 
     send(data: MessageProtocol) {
+        data.namespace = MESSAGE_NAMESPACE;
         this.session.sendMessage(MESSAGE_NAMESPACE, data);
     }
 }
